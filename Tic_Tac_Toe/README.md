@@ -18,4 +18,4 @@ A simple Python implementation of the classic Tic-Tac-Toe game where two players
 4. Run the game by executing:
 
    ```bash
-   python tictactoe.py
+   python Tic_tac_toe.py
