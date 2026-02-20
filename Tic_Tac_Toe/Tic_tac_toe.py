@@ -1,3 +1,4 @@
+
 def guide_show():
     board = [" 1", "2", "3",
             " 4", "5", "6",
@@ -28,33 +29,20 @@ def player_selection():
             
     player2 = "O" if player1 == "X" else "X"
 
-    return player1
+    return player1, player2
 
-def player_1_move(board,player1):
-    move = int(input("\nPlayer 1, choose your move (1-9): "))
+def player_move(board,player):
+    move = int(input(f"\nPlayer {player} choose your move (1-9): "))
     while not (1 <= move <= 9) or (board[move - 1] != " "):
-        move = int(input("Invalide choice. Player 1, choose your move (1-9): "))
+        move = int(input(f"Invalide choice. Player {player} choose your move (1-9): "))
 
-    board[move - 1] = player1
-    show(board)
-
-def player_2_move(board,player1):
-    if (player1 == "O"):
-        player2 = "X"
-    else:
-        player2 = "O"
-
-    move = int(input("\nPlayer 2, choose your move (1-9): "))
-    while not (1 <= move <= 9) or (board[move - 1] != " "):
-        move = int(input("Invalide choice. Player 2, choose your move (1-9): "))
-
-    board[move - 1] = player2
+    board[move - 1] = player
     show(board)
 
 def check_game(board):
     checklist = [[0,3,6],[1,4,7],[2,5,8], 
                  [0,1,2],[3,4,5],[6,7,8], 
-                 [0,4,8],[2,4,6]]        #diagonal
+                 [0,4,8],[2,4,6]]
     
     for i in checklist:
         if((board[i[0]] == board[i[1]] == board[i[2]]) and board[i[0]] != " "):
@@ -73,21 +61,16 @@ def game():
     print("\n")
     board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
     show(board)
-
-    player1 = player_selection()
-
+    
+    player1, player2 = player_selection()
+    current_player = player1
+    
     while(True):
-
-        player_1_move(board,player1)
+    
+        player_move(board,current_player)
         if check_game(board):
             break
-
-        player_2_move(board,player1)
-        if check_game(board):
-            break
-
-        if(" " not in board):
-            break
+        current_player = player2 if current_player == player1 else player1
 
     a = input("Want to play again (y/n) : ")
 
