@@ -3,12 +3,8 @@ def data_table(row,col):
 
     for j in range(col):
         for i in range(row):
-            data_list[i][0].append(i+1)
+            data_list[j][i]
 
     return data_list
 
 
-row = 3
-col = 3
-sample_test = data_table(row,col)
-print(sample_test)
