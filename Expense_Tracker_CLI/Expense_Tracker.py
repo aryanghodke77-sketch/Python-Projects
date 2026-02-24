@@ -17,15 +17,15 @@ def id_generator(row,col):
      return id_list
 
 def ask_date():    
-    a = int(input("Enter the day: "))
-    b = int(input("Enter the month: "))
-    c = int(input("Enter the year: "))
+    day = int(input("Enter the day: "))
+    month = int(input("Enter the month: "))
+    year = int(input("Enter the year: "))
     
-    return a,b,c
+    return day,month,year
 
-def date_generator(row,col,a,b,c):
+def date_generator(row,col,day,month,year):
     date_list = [[[] for _ in range(row)] for _ in range(col)]
-    date_list[col-1][1] = f"{a} | {b} | {c}"
+    date_list[col-1][1] = f"{day} | {month} | {year}"
     
     return date_list
 
@@ -39,11 +39,8 @@ for i in range(col):
     for j in range(row):
         list_0[i][0] = list_1[i][0]
 
-a,b,c = ask_date()
-h = date_generator(row,col,a,b,c)
-print(h)
-
-list_2 = date_generator(row,col,a,b,c)
+day,month,year = ask_date()
+list_2 = date_generator(row,col,day,month,year)
 for i in range(col):
     for j in range(row):
         list_0[col-1][1] = list_2[col-1][1]
