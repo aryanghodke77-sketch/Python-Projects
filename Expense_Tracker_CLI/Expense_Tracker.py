@@ -51,33 +51,66 @@ def amount_recorder(row,col,amount):
     
     return amount_list
 
+def transaction(deposit,withdraw,row,col,day,month,year,category,amount):
+    amount = int(amount)
+    withdraw_amount = -abs(amount)
+    
+    list_0 = data_table(row,col)
+    list_1= id_generator(row,col)
+    list_2 = date_generator(row,col,day,month,year)
+    list_3 = category_setter(row,col,category)
+    list_4 = amount_recorder(row,col,amount)
+    list_5 = amount_recorder(row,col,withdraw_amount)
+    
+    for i in range(col):
+        for j in range(row):
+            list_0[i][0] = list_1[i][0]
 
+    for i in range(col):
+        for j in range(row):
+            list_0[col-1][1] = list_2[col-1][1]
+
+    for i in range(col):
+        for j in range(row):
+            list_0[col-1][2] = list_3[col-1][2]
+
+    if deposit == 1:
+        for i in range(col):
+            for j in range(row):
+                list_0[col-1][3] = list_4[col-1][3]
+    if withdraw == 1:
+        for i in range(col):
+            for j in range(row):
+                list_0[col-1][3] = list_5[col-1][3]
+
+    return list_0
+
+def UI_Transaction(deposit,withdraw,row,col):
+    
+    if deposit == 1:
+        print(f"\n---- Deposit ----\n")
+    else:
+        print(f"\n---- withdraw ----\n")
+
+    day,month,year = ask_date()
+    category = ask_category()
+    amount = ask_amount()
+
+    list = transaction(deposit,withdraw,row,col,day,month,year,category,amount)
+
+    print(list)
+
+choice = int(input("Enter choice : "))
+
+if choice == 1:
+    deposit = 1
+    withdraw = 0
+
+if choice == 2:
+    deposit = 0
+    withdraw = 1
+    
 row = 4
 col = 4
+UI_Transaction(deposit,withdraw,row,col)
 
-list_0 = data_table(row,col)
-list_1= id_generator(row,col)
-day,month,year = ask_date()
-list_2 = date_generator(row,col,day,month,year)
-category = ask_category()
-list_3 = category_setter(row,col,category)
-amount = ask_amount()
-list_4 = amount_recorder(row,col,amount)
-
-for i in range(col):
-    for j in range(row):
-        list_0[i][0] = list_1[i][0]
-
-for i in range(col):
-    for j in range(row):
-        list_0[col-1][1] = list_2[col-1][1]
-
-for i in range(col):
-    for j in range(row):
-        list_0[col-1][2] = list_3[col-1][2]
-
-for i in range(col):
-    for j in range(row):
-        list_0[col-1][3] = list_4[col-1][3]
-
-print(list_0)
