@@ -1,16 +1,12 @@
 def data_table(row,col):
     data_list = [[[]for _ in range(row)] for _ in range(col)]
 
-    for i in range(col):
-        for j in range(row):
-            data_list[i][j]
-
     return data_list
 
 def id_generator(row,col):
-     id_list = [[[] for _ in range(row)] for _ in range(col)]
+     id_list = [[[] for _ in range(row)] for _ in range(col+1)]
 
-     for i in range(col):
+     for i in range(col+1):
         for j in range(row):
             id_list[i][0] = (i+1)
      
@@ -52,6 +48,7 @@ def amount_recorder(row,col,amount):
     return amount_list
 
 def transaction(deposit,withdraw,row,col,day,month,year,category,amount):
+    
     amount = int(amount)
     withdraw_amount = -abs(amount)
     
@@ -61,10 +58,6 @@ def transaction(deposit,withdraw,row,col,day,month,year,category,amount):
     list_3 = category_setter(row,col,category)
     list_4 = amount_recorder(row,col,amount)
     list_5 = amount_recorder(row,col,withdraw_amount)
-    
-    for i in range(col):
-        for j in range(row):
-            list_0[i][0] = list_1[i][0]
 
     for i in range(col):
         for j in range(row):
@@ -96,21 +89,31 @@ def UI_Transaction(deposit,withdraw,row,col):
     category = ask_category()
     amount = ask_amount()
 
-    list = transaction(deposit,withdraw,row,col,day,month,year,category,amount)
+    print(transaction(deposit,withdraw,row,col,day,month,year,category,amount))
 
-    print(list)
-
-choice = int(input("Enter choice : "))
-
-if choice == 1:
-    deposit = 1
-    withdraw = 0
-
-if choice == 2:
-    deposit = 0
-    withdraw = 1
-    
 row = 4
-col = 4
-UI_Transaction(deposit,withdraw,row,col)
+col = 1
+
+list_0 = data_table(row,col)
+list_1= id_generator(row,col)
+    
+for i in range(col):
+    for j in range(row):
+        list_0[i][0] = list_1[i][0]
+
+while True:
+    print("---- Operations you can perform ----")
+    print("1. Deposit")
+    print("2. Withdraw")
+    print("3. Edit")
+    print("4. Delete")
+    print("5. Exit\n")
+
+    choice = int(input("Enter choice : "))
+    deposit, withdraw = (1, 0) if choice == 1 else (0, 1) if choice == 2 else (0, 0)
+
+    if choice == 1 or choice == 2:
+        UI_Transaction(deposit,withdraw,row,col)
+        col += 1
+        
 
