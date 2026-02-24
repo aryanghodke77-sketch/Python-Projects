@@ -3,7 +3,7 @@ def data_table(row,col):
 
     for i in range(col):
         for j in range(row):
-            data_list[i][j] = 0
+            data_list[i][j]
 
     return data_list
 
@@ -16,14 +16,36 @@ def id_generator(row,col):
      
      return id_list
 
-row = 3
-col = 3
+def ask_date():    
+    a = int(input("Enter the day: "))
+    b = int(input("Enter the month: "))
+    c = int(input("Enter the year: "))
+    
+    return a,b,c
 
-list1 = data_table(row,col)
-list2 = id_generator(row,col)
+def date_generator(row,col,a,b,c):
+    date_list = [[[] for _ in range(row)] for _ in range(col)]
+    date_list[col-1][1] = f"{a} | {b} | {c}"
+    
+    return date_list
+
+row = 4
+col = 4
+
+list_0 = data_table(row,col)
+list_1= id_generator(row,col)
 
 for i in range(col):
     for j in range(row):
-        list1[i][0] = list2[i][0]
+        list_0[i][0] = list_1[i][0]
 
-print(list1)
+a,b,c = ask_date()
+h = date_generator(row,col,a,b,c)
+print(h)
+
+list_2 = date_generator(row,col,a,b,c)
+for i in range(col):
+    for j in range(row):
+        list_0[col-1][1] = list_2[col-1][1]
+
+print(list_0)
