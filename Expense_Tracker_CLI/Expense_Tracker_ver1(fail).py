@@ -117,3 +117,4 @@ while True:
         col += 1
         
 
+table[col+1]["id"], "\t", table[col+1]["date"], "\t", table[col+1]["category"], "\t", table[col+1]["amount"]
