@@ -1,7 +1,3 @@
-Here’s a professional and clear **README** for your expense tracker program:
-
----
-
 # Expense Tracker (Python CLI)
 
 ## Overview
@@ -95,24 +91,3 @@ Added Expense ID 1
 ---- Operations you can perform ----
 ...
 ```
-
----
-
-## Limitations / Notes
-
-* **No persistent storage**: All data is lost when the program exits.
-* Uses **global ID counter**; IDs reset if the program restarts.
-* Dates are not validated beyond basic day/month ranges.
-
----
-
-## Future Improvements
-
-* Add **JSON file storage** to persist expenses between sessions.
-* Refactor to separate `Expense` objects from `Tracker` for better OOP design.
-* Add **search/filter functionality** by date or category.
-* Support **negative amounts for withdrawals** and totals.
-
----
-
-Do you want me to also **update this README for the refactored OOP version** where `Expense` is a separate class and global IDs are removed? This will make it more professional.
