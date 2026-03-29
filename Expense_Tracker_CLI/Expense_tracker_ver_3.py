@@ -28,8 +28,7 @@ class Tracker:
         return f"{day}/{month}/{year}"
         
     def get_category(self):    
-        category = input(f"Enter the category: ")
-        return category
+        return input(f"Enter the category: ")
         
     def get_amount(self):
         while True: 
@@ -41,16 +40,18 @@ class Tracker:
 
 # ------------------ Data Handling ------------------
     def show_expenses(self):
+        if not self.expenses:
+            print("No expenses to show.")
+            return
         print("ID\tDate\t\tCategory\tAmount")
         for record in self.expenses:
-            print(f'{record["id"]}\t{record["date"]}\t\t{record["category"]}\t{record["amount"]}')
+            print(f'{record["id"]}\t{record["date"]}\t\t{record["category"]}\t\t{record["amount"]}')
 
     def add_expense(self,amount):
-        self.date = self.get_date()
-        self.category = self.get_category()
-        self.transaction_id = self.id_generator()
-        self.amount = amount
-        self.expenses.append({"id": self.transaction_id,"date": self.date,"category": self.category,"amount": self.amount})
+        date = self.get_date()
+        category = self.get_category()
+        transaction_id = self.id_generator()
+        self.expenses.append({"id": transaction_id,"date": date,"category": category,"amount": amount})
         
     def delete_expense(self):
         try:
@@ -59,10 +60,11 @@ class Tracker:
             print("Please enter a valid input")
             return False
         
-        for expense in self.expenses:
+        for i, expense in enumerate(self.expenses):
             if expense["id"] == self.transaction_id:
-                self.expenses.remove(expense)
-                return True
+                self.expenses.pop(i)
+                print("Expense deleted.")
+                return
         return False
         
     def edit_expense(self):
@@ -72,15 +74,16 @@ class Tracker:
             print("Please enter a valid input")
             return False
 
-        self.category = self.get_category()
-        self.amount = self.get_amount()
+        new_category = self.get_category()
+        new_amount = self.get_amount()
 
         for i in self.expenses:
             if i["id"] == self.transaction_id:
-                i["category"] = self.category
-                i["amount"] = self.amount
-                return True
-        return False
+                i["category"] = new_category
+                i["amount"] = new_amount
+                print("Expense updated.")
+                return
+        print("Expense ID not found.")
                    
 # ------------------- Main ---------------------
 expense = Tracker()
