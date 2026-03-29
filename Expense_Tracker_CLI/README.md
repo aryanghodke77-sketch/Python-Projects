@@ -1,12 +1,21 @@
+Here’s a professional and clear **README** for your expense tracker program:
+
+---
+
 # Expense Tracker (Python CLI)
 
 ## Overview
+
 This is a **command-line Expense Tracker** built in Python using basic OOP concepts. It allows users to **add, edit, delete, and view expenses** with unique transaction IDs and date/category information.
+
 The program stores all data in memory while it runs. It uses a simple **global ID counter** to assign unique IDs to each transaction.
 
+---
 
 ## Features
+
 * Add an expense with:
+
   * Date (day/month/year)
   * Category (e.g., Food, Rent, Entertainment)
   * Amount
@@ -14,44 +23,58 @@ The program stores all data in memory while it runs. It uses a simple **global I
 * Delete an expense by its **transaction ID**
 * Display all recorded expenses in a table format
 * Input validation for:
+
   * Numeric amounts
   * Proper day/month values
 
+---
 
 ## How It Works
+
 1. When you start the program, a menu is displayed with options to:
+
    1. Add expense
    2. Edit expense
    3. Delete expense
    4. Show all expenses
    5. Exit
 2. Adding an expense:
+
    * User is prompted to enter a date, category, and amount.
    * The program assigns a unique ID automatically.
 3. Editing or deleting requires the **ID of the transaction**.
 4. The program loops until the user chooses **Exit**.
+
+---
+
 ## Code Structure
 
+* **`Tracker` class**: Handles all expense management
 
-**Tracker class**: Handles all expense management
-  * add_expense(amount) – Adds a new expense
-  * edit_expense() – Edits an existing expense
-  * delete_expense() – Deletes an expense by ID
-  * show_expenses() – Displays all expenses
-  * get_date(), get_category(), get_amount() – Handles user input
-  * id_generator() – Generates unique IDs
+  * `add_expense(amount)` – Adds a new expense
+  * `edit_expense()` – Edits an existing expense
+  * `delete_expense()` – Deletes an expense by ID
+  * `show_expenses()` – Displays all expenses
+  * `get_date()`, `get_category()`, `get_amount()` – Handles user input
+  * `id_generator()` – Generates unique IDs
 * **Main program loop**: Presents a menu and calls appropriate methods.
 
+---
 
 ## Usage
+
 1. Run the program using Python 3:
+
    ```bash
    python expense_tracker.py
    ```
 2. Follow the on-screen instructions to manage your expenses.
 
+---
 
 ## Example Session
+
+```
 ---- Operations you can perform ----
 1. Add expenses
 2. Edit expense
@@ -70,5 +93,26 @@ Enter the Amount: 500
 Added Expense ID 1
 
 ---- Operations you can perform ----
+...
+```
+
+---
+
+## Limitations / Notes
+
+* **No persistent storage**: All data is lost when the program exits.
+* Uses **global ID counter**; IDs reset if the program restarts.
+* Dates are not validated beyond basic day/month ranges.
+
+---
+
+## Future Improvements
+
+* Add **JSON file storage** to persist expenses between sessions.
+* Refactor to separate `Expense` objects from `Tracker` for better OOP design.
+* Add **search/filter functionality** by date or category.
+* Support **negative amounts for withdrawals** and totals.
+
+---
 
 Do you want me to also **update this README for the refactored OOP version** where `Expense` is a separate class and global IDs are removed? This will make it more professional.
