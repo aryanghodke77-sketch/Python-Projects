@@ -15,10 +15,12 @@ Add floating-point support for amounts.
 
 Add confirm prompts for Delete/Edit to improve UX.'''
 
+import json
 
 table = []
 next_id = 1
 
+# ------------------ ID Generator ------------------
 def id_generator():
     global next_id
     transaction_id = next_id
@@ -26,6 +28,7 @@ def id_generator():
 
     return transaction_id
 
+# ------------------ User Inputs ------------------
 def ask_date():
     while True:
         try:
@@ -56,21 +59,22 @@ def ask_amount():
         except ValueError:
             print("Please enter valid numbers")
 
+# ------------------ Data Handling ------------------
 def data_generator(transaction_id, day, month, year, category, amount):
     date = f"{day}/{month}/{year}"
     record = {"id": transaction_id,"date": date,"category": category,"amount": amount}
     
     return record
 
-def UI_input(amount):
+def create_record(amount):
     day,month,year = ask_date()
     category = ask_category()
     transaction_id = id_generator()
 
     record = data_generator(transaction_id, day, month, year, category, amount)
     table.append(record)
+    save_file(table)
 
-    print("ID","\t","Date","\t","\t","Category","\t","amount")
     print(f'{record["id"]}\t{record["date"]}\t{record["category"]}\t\t{record["amount"]}')
 
 def delete_transaction():
@@ -83,6 +87,7 @@ def delete_transaction():
     for index, record in enumerate(table):
         if record["id"] == transaction_id:
             table.pop(index)
+            save_file(table)
             print("Transaction deleted.")
             return
 
@@ -113,14 +118,36 @@ def edit_transaction():
 
     record = {"id": transaction_id,"date": date,"category": category,"amount": amount}
     table[current_col] = record
+    save_file(table)
 
     return True
 
+# ------------------ File Handling ------------------
+def load_file():
+    global table, next_id
+    try:
+        with open("database.txt","r") as data:
+            table = json.load(data)
+            if table:
+                next_id = max(record["id"] for record in table) + 1
+    except FileNotFoundError:
+        table = []
+    except json.JSONDecodeError:
+        table = []
+
+def save_file(updated_table):
+    with open("database.txt","w") as data:
+        json.dump(updated_table, data, indent = 4)
+
+# ------------------ Display ------------------
 def show_table():
     print("ID\tDate\t\tCategory\tAmount")
     for record in table:
         print(f'{record["id"]}\t{record["date"]}\t\t{record["category"]}\t{record["amount"]}')
 
+# ------------------ Main Program ------------------
+
+load_file()
 while True:
     print("\n---- Operations you can perform ----")
     print("1. Deposit")
@@ -140,14 +167,13 @@ while True:
         print(f"\n---- Deposit ----\n")
         amount = ask_amount()
 
-        UI_input(amount)
+        create_record(amount)
 
     elif choice == 2:
         print(f"\n---- Withdraw ----\n")
-        amount = ask_amount()
-        amount *= -1
+        amount = ask_amount() * -1
 
-        UI_input(amount)
+        create_record(amount)
 
     elif choice == 3:
         if edit_transaction():
@@ -164,3 +190,5 @@ while True:
     elif choice == 6:
         print("Exiting the program.")
         break
+
+# ------------ END --------------

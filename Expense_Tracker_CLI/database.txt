@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "date": "23/3/23",
+        "category": "earn",
+        "amount": 54321
+    },
+    {
+        "id": 2,
+        "date": "25/3/23",
+        "category": "shopping",
+        "amount": -543
+    },
+    {
+        "id": 4,
+        "date": "17/3/23",
+        "category": "Salary",
+        "amount": 76543
+    },
+    {
+        "id": 5,
+        "date": "24/2/24",
+        "category": "salary1",
+        "amount": 23456
+    }
+]
